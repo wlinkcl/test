@@ -1,2 +1,6 @@
 github test
 Hello World
+
+https://stackoverflow.com/questions/7952154/spring-resttemplate-how-to-enable-full-debugging-logging-of-requests-responses
+
+
