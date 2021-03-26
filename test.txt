@@ -5,6 +5,7 @@ https://stackoverflow.com/questions/7952154/spring-resttemplate-how-to-enable-fu
 
 https://www.baeldung.com/spring-resttemplate-logging
 
+https://stackoverflow.com/questions/38983934/cannot-get-maven-project-version-property-in-a-spring-application-with-value
 
 
 
