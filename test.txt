@@ -13,4 +13,10 @@ completablefuture examples
 https://mahmoudanouti.wordpress.com/2018/01/26/20-examples-of-using-javas-completablefuture/
 
 
+timeout:
+http://iteratrlearning.com/java9/2016/09/13/java9-timeouts-completablefutures.html
+
+
+
+
 
