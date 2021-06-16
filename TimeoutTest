@@ -1,0 +1,56 @@
+package com.baeldung.concurrent.stopexecution;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
+import java.util.concurrent.*;
+
+public class TimeoutTest {
+
+    public static Integer getValue() {
+        System.out.println("I am called");
+        // Simulating a long network call of 1 second in the worst case
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 10;
+    }
+
+    public static void main(String[] args) {
+        ExecutorService executor = new ThreadPoolExecutor(10, 10,
+                0L, TimeUnit.MILLISECONDS,
+                // This is an unbounded Queue. This should never be used
+                // in real life. That is the first step to failure.
+                new LinkedBlockingQueue<Runnable>());
+        // We want to call the dummy service 10 times
+        ScheduledExecutorService schedulerService =
+                Executors.newScheduledThreadPool(
+                        1,
+                        new ThreadFactoryBuilder()
+                                .setDaemon(true)
+                                .setNameFormat("failAfter-%d")
+                                .build());
+
+        CompletableFuture[] allFutures = new CompletableFuture[10];
+
+        for (int i = 0; i < 10; ++i) {
+            CompletableFuture dependencyFuture = CompletableFuture.supplyAsync(() -> getValue(), executor);
+            CompletableFuture futureTimeout = new CompletableFuture();
+
+            schedulerService.schedule(
+                    () -> futureTimeout.completeExceptionally(new TimeoutException()),
+                    500, TimeUnit.MILLISECONDS);
+
+            CompletableFuture result = CompletableFuture.anyOf(dependencyFuture, futureTimeout);
+
+            allFutures[i] = result;
+        }
+        // Finally wait for all futures to join
+        CompletableFuture.allOf(allFutures).join();
+        System.out.println("All futures completed");
+        System.out.println(executor.toString());
+        schedulerService.shutdownNow();
+        executor.shutdownNow();
+    }
+}
