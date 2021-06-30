@@ -1,0 +1,72 @@
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+.
+.
+.
+
+  @Bean
+  WebClientCustomizer configureWebclient(@Value("${server.ssl.trust-store}") String trustStorePath, @Value("${server.ssl.trust-store-password}") String trustStorePass,
+      @Value("${server.ssl.key-store}") String keyStorePath, @Value("${server.ssl.key-store-password}") String keyStorePass, @Value("${server.ssl.key-alias}") String keyAlias) {
+
+      return (WebClient.Builder webClientBuilder) -> {
+          SslContext sslContext;
+          final PrivateKey privateKey;
+          final X509Certificate[] certificates;
+          try {
+            final KeyStore trustStore;
+            final KeyStore keyStore;
+            trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            trustStore.load(new FileInputStream(ResourceUtils.getFile(trustStorePath)), trustStorePass.toCharArray());
+            keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            keyStore.load(new FileInputStream(ResourceUtils.getFile(keyStorePath)), keyStorePass.toCharArray());
+            List<Certificate> certificateList = Collections.list(trustStore.aliases())
+                .stream()
+                .filter(t -> {
+                  try {
+                    return trustStore.isCertificateEntry(t);
+                  } catch (KeyStoreException e1) {
+                    throw new RuntimeException("Error reading truststore", e1);
+                  }
+                })
+                .map(t -> {
+                  try {
+                    return trustStore.getCertificate(t);
+                  } catch (KeyStoreException e2) {
+                    throw new RuntimeException("Error reading truststore", e2);
+                  }
+                })
+                .collect(Collectors.toList());
+            certificates = certificateList.toArray(new X509Certificate[certificateList.size()]);
+            privateKey = (PrivateKey) keyStore.getKey(keyAlias, keyStorePass.toCharArray());
+            Certificate[] certChain = keyStore.getCertificateChain(keyAlias);
+            X509Certificate[] x509CertificateChain = Arrays.stream(certChain)
+                .map(certificate -> (X509Certificate) certificate)
+                .collect(Collectors.toList())
+                .toArray(new X509Certificate[certChain.length]);
+            sslContext = SslContextBuilder.forClient()
+                .keyManager(privateKey, keyStorePass, x509CertificateChain)
+                .trustManager(certificates)
+                .build();
+  
+            HttpClient httpClient = HttpClient.create()
+                .secure(sslContextSpec -> sslContextSpec.sslContext(sslContext));
+            ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
+            webClientBuilder.clientConnector(connector);
+          } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException | UnrecoverableKeyException e) {
+            throw new RuntimeException(e);
+          }
+        };
+  }
+  
+  import org.springframework.web.reactive.function.client.WebClient;
+
+@Component
+public class ClientComponent {
+	
+	WebClient client;
+
+  public ClientComponent(WebClient.Builder webClientBuilder, @Value("${url}") String url) {
+    this.client = webClientBuilder.baseUrl(solrUrl).build();
+  }
+}
+
