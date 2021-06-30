@@ -24,6 +24,10 @@ https://mp.weixin.qq.com/s/rAbhWWXiWgn1tYDuJ2HlTw
 https://stackoverflow.com/questions/41392286/java-8-completablefuture-stream-and-timeouts
 
 
+WebClient SSL
+
+https://newbedev.com/spring-5-webclient-using-ssl
+
 
 
 
