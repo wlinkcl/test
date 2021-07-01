@@ -28,6 +28,12 @@ WebClient SSL
 
 https://newbedev.com/spring-5-webclient-using-ssl
 
+spring-web-client-customizing
+
+https://github.com/rieckpil/blog-tutorials/tree/master/spring-web-client-customizing
+
+
+
 
 
 
