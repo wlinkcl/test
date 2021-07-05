@@ -36,6 +36,10 @@ https://github.com/rieckpil/blog-tutorials/tree/master/spring-web-client-customi
 https://www.nickebbitt.com/blog/2017/03/22/async-web-service-using-completable-future
 
 
+https://filia-aleks.medium.com/microservice-performance-battle-spring-mvc-vs-webflux-80d39fd81bf0
+
+
+
 
 
 
