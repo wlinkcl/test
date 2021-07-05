@@ -33,6 +33,10 @@ spring-web-client-customizing
 https://github.com/rieckpil/blog-tutorials/tree/master/spring-web-client-customizing
 
 
+https://www.nickebbitt.com/blog/2017/03/22/async-web-service-using-completable-future
+
+
+
 
 
 
