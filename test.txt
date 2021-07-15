@@ -1,4 +1,13 @@
 
+private int parallism;
+    private ExecutorService pool;
+
+    public ExecutorServiceCalculator() {
+        parallism = Runtime.getRuntime().availableProcessors(); // CPU的核心数 默认就用cpu核心数了
+        pool = Executors.newFixedThreadPool(parallism);
+    }
+
+
 https://fahdshariff.blogspot.com/2016/06/java-8-completablefuture-vs-parallel.html
 
 
