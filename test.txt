@@ -8,6 +8,8 @@ jackson data binding:
 
 json -> java object
 
+DDD:
+https://juejin.cn/post/6892920519507574798
 
 
 private int parallism;
