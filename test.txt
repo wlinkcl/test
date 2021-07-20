@@ -1,3 +1,14 @@
+json schema generated class:
+https://www.jsonschema2pojo.org/
+http://www.littlebigextra.com/how-to-convert-json-schema-to-java-classes-using-maven-plugin/
+https://dzone.com/articles/converting-json-to-pojos-using-java
+
+
+jackson data binding: 
+
+json -> java object
+
+
 
 private int parallism;
     private ExecutorService pool;
