@@ -1,3 +1,11 @@
+
+DDD/MS
+
+http://www.servicedesignpatterns.com/requestandresponsemanagement/datatransferobject
+Data is often extracted and copied from XML or JSON request structures to meaningful domain objects because these objects tend to be much easier to work with.
+Data may be mapped into and out of DTOs through custom code or with data-binding technologies. With the former approach, the logic to move data to and from DTOs may be centralized in the DTO itself, or within Request Mappers and Response Mappers.
+
+
 json schema generated class:
 https://www.jsonschema2pojo.org/
 http://www.littlebigextra.com/how-to-convert-json-schema-to-java-classes-using-maven-plugin/
