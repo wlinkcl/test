@@ -1,4 +1,13 @@
 
+Error page:
+
+Cannot forward to error page for request … as the response has already been committed. As a result, the response may have the wrong status code
+
+https://stackoverflow.com/questions/49472469/cannot-forward-to-error-page-for-request-as-the-response-has-already-been-co
+https://github.com/spring-projects/spring-boot/issues/11814
+https://forum.flowable.org/t/cannot-forward-to-error-page-for-request-favicon-ico-as-the-response-has-already-been-commited/2197
+
+
 DDD/MS
 
 http://www.servicedesignpatterns.com/requestandresponsemanagement/datatransferobject
