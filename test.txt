@@ -1,3 +1,27 @@
+Http Connection Pool:
+
+https://stackoverflow.com/questions/53873158/monitor-connection-pool-of-poolinghttpclientconnectionmanager
+
+		HttpClient httpClient = HttpClientBuilder.create()
+				.setMaxConnTotal(100)
+				.setMaxConnPerRoute(10)
+		   	    .build();
+
+		PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+		ConnPoolControl<HttpRoute> connPoolControl = cm;
+		CloseableHttpClient client = HttpClients.custom()
+				.setConnectionManager(cm)
+				.build();
+
+		HttpRoute httpRoute = new HttpRoute(new HttpHost("http://www.google.com",8080));
+		PoolStats poolStats = connPoolControl.getStats(httpRoute);
+		PoolStats totalStats = connPoolControl.getTotalStats();
+		
+		System.out.println("pool available:" + poolStats.getAvailable() + " leased:" + poolStats.getLeased());
+
+
+
+
 REST API and DTO
 https://stackoverflow.com/questions/36174516/rest-api-dtos-or-not
 
