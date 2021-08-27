@@ -1,0 +1,30 @@
+//https://www.baeldung.com/httpclient-connection-management
+
+@RestController
+@RequestMapping(value = "/delegate")
+public class DemoResource {
+
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private PoolingHttpClientConnectionManager poolingHttpClientConnectionManager;
+
+	@RequestMapping(path = "/demo", method = RequestMethod.GET)
+	public String getDemoDelegate() {
+		ConnPoolControl<HttpRoute> connPoolControl = poolingHttpClientConnectionManager;
+		//HttpRoute httpRoute = new HttpRoute(new HttpHost("http://localhost",8800));
+		//PoolStats poolStats = connPoolControl.getStats(httpRoute);
+		PoolStats totalStats = connPoolControl.getTotalStats();
+		System.out.println("max:" + totalStats.getMax()
+				          +"\tavailable:" + totalStats.getAvailable()
+				          +"\tleased:" + totalStats.getLeased()
+		                  +"\tpending:" + totalStats.getPending());
+
+		return this.restTemplate.getForObject("http://localhost:8800/demo", String.class);
+	}
+
+	@Autowired
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+}
