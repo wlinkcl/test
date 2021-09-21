@@ -1,0 +1,11 @@
+https://stackoverflow.com/questions/23483787/convert-unix-timestamp-with-a-timezone-to-javascript-date
+
+moment
+  .unix(1399335987)
+  .tz('MST')
+  .format('YYYY-MM-DDTHH:mm:ssZ');
+  
+  
+   "2014-05-05T17:26:27-07:00"
+   
+   
