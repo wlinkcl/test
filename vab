@@ -4,3 +4,10 @@
   
   wlinkg@yahoo.com
   
+  StartTime: "/Date(1635357600000-0400)/"
+  
+  use (1635357600000-0400 get local time, then replace -0400 with another timezone, keep local time -> get Zoned Time
+  
+  
+  
+  
