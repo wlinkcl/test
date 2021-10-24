@@ -1,6 +1,26 @@
+1. Every client needs to create a converter to convert the date string from ical
+   angular, java, ios, ... 
+   mainframe: cobol
+     
+2. It's quite important for maintainability of your software to always store times in UTC. 
+    If you ever store in your local timezone, calculating any other timezone will be a mess 
+    - think daylight savings times, change of timezones of different areas of the world etc.
+    
+    not reliable
+    
+    
+
 tomcat timezone config
 
+https://www.baeldung.com/java-set-date-time-zone
+
 https://stackoverflow.com/questions/28777322/how-to-change-tomcat-7s-server-timezone
+
+https://docs.openkm.com/kcenter/view/okm-6.4/configuring-tomcat-timezone.html
+
+https://docs.oracle.com/javase/9/troubleshoot/time-zone-settings-jre.htm#JSTGD359
+
+https://www.baeldung.com/java-jvm-time-zone
 
 
 
